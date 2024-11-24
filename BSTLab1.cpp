@@ -7,7 +7,7 @@ class Node {
 	public:
 		// the Node should contain
 		// 	- an integer "key" that holds the value of the Node
-		int data;
+		int key;
 		// 	- a pointer to each child possible child node ("right" and "left")
 		Node *left;
 		Node *right;
@@ -16,7 +16,7 @@ class Node {
 		// input: only an integer value for "key", no pointer arguments
 		// 		right and left pointers should be null
 		Node(int k){
-			data = k;
+			key = k;
 			left = nullptr;
 			right = nullptr;
 		}
@@ -41,11 +41,13 @@ Node* createTree() {
 	root->left->left->right = new Node(-1);
 	// level 3 (children of 7)
 	root->left->right->left = new Node(6);
+	root->left->right->right = new Node(12);
 	// level 3 (children of 15)
-
+	root->right->left->right = new Node(18);
 	// level 3 (children of 99)
 
 	// level 4 (children of 18)
+	root->right->left->right->right = new Node(19);
 
 	return root;
 }
@@ -56,11 +58,19 @@ Node* createTree() {
 // 	returns: true or false depending on if the value is found
 // You should write this function recursively! What is the base case? What is the general case?
 bool searchTree(int target, Node* root) {
+	Node *current = root;
 	// Base cases
-	return false;
-
+	if(current == nullptr){
+		return false;
+	}
+	if(current->key == target){
+		return true;
+	}
 	// General case
-	return false;
+	else{
+		searchTree(target, current->left);
+		searchTree(target, current->right);
+	}
 	
 }
 
@@ -69,11 +79,17 @@ bool searchTree(int target, Node* root) {
 // 	returns: number of nodes currently in the tree
 // You should write this function recursively!
 int treeSize(Node* root) {
+	Node *current = root;
+	int i = 0;
 	// base case
-	return -1;
-
+	if(current == nullptr){
+		return 0;
+	}
 	// General case
-	return -1;
+	else{
+		i++;
+		return (treeSize(current->left)) + (treeSize(current->right));
+	}
 
 }
 
