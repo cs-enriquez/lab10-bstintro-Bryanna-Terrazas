@@ -80,15 +80,14 @@ bool searchTree(int target, Node* root) {
 // You should write this function recursively!
 int treeSize(Node* root) {
 	Node *current = root;
-	int i = 0;
+	int n = 0;
 	// base case
 	if(current == nullptr){
 		return 0;
 	}
 	// General case
 	else{
-		i++;
-		return (treeSize(current->left)) + (treeSize(current->right));
+		return (n+1) + (treeSize(current->left)) + (treeSize(current->right));
 	}
 
 }
